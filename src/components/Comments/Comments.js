@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { Input, TextField, Button, Select, MenuItem } from "@material-ui/core";
+import { Input, TextField, Button, Select, MenuItem, Paper } from "@material-ui/core";
 import swal from "sweetalert";
 
 // header is a controlled component used to render the site header
@@ -16,14 +17,15 @@ class Comments extends Component {
   };
 
   confirmFeedback = (event) => {
-    this.props.history.push("/");
-    const { feeling, supported, understanding, comments } = this.props.feedback;
+    const { feeling, support, understanding, comments } = this.props.feedback;
+    const submitFeedback = { ...this.props.feedback };
+    console.log("submitFeedback", submitFeedback)
     swal({
-      title: "Are you sure?",
+      title: "Confirm your feedback",
       text: `You're feedback:
         How are you feeling today? ${feeling}
         How well are you understanding the content? ${understanding}
-        How well are you being supported? ${supported}
+        How well are you being supported? ${support}
         Any comments you want to leave? ${comments}
         click "ok" to confirm`,
       icon: "confirm",
@@ -31,12 +33,26 @@ class Comments extends Component {
       dangerMode: true,
     }).then((confirm) => {
       if (confirm) {
-        swal("Poof! Your imaginary file has been deleted!", {
+        axios({
+          method: "POST",
+          url: "/confirm",
+          data: submitFeedback,
+        }) //end axios
+          .then((response) => {
+            // reset the current order data
+            // this.props.dispatch({ type: "RESET_ORDER" });
+            // go back to the starting order page
+          }) //end .thenresponse
+          .catch((error) => {
+            console.log(error);
+          }); //end .catchError
+        swal("Thank you for your feedback!", {
           icon: "success",
         });
       } else {
-        swal("Your imaginary file is safe!");
+        swal("Your feedback submission was canceled!");
       }
+      this.props.history.push("/");
     });
   };
 
@@ -47,23 +63,31 @@ class Comments extends Component {
       toggle: !this.state.toggle,
     });
   };
+
+  previous = (event) => {
+    // validation is handled by the form "required" attribute
+    event.preventDefault();
+    this.props.history.push("/support");
+  };
   render() {
     return (
-      <div className="App-header">
-        <h1 className="App-title">Comments</h1>
+      <Paper style={{ borderRadius: "10%", height: "500px", width: "500px" }} elevation="24" className="feedbackBox">
+      <div>
+          <h1>Do you have any feedback for us?</h1>
+          <h2>We'd love to hear from you</h2>
+          <h3>please fill out any feedback you have for us below</h3>
         <form onSubmit={this.submitInfo}>
           <TextField
             variant="outlined"
-            label="Comments?"
+            label="feedback?"
             name="Comments"
             value={this.state.comments}
-            placeholder="Do you have any feedback for us?"
             type="text"
             maxLength={1000}
             onChange={(event) => this.handleChange(event, "comments")}
-          />
+          /><br/>
           <Button
-            id="comments"
+            className="feedbackButton"
             variant="contained"
             color="primary"
             type="submit"
@@ -71,6 +95,7 @@ class Comments extends Component {
             Submit Feedback
           </Button>
         </form>
+        <br/>
         {this.state.toggle === false ? (
           <div></div>
         ) : (
@@ -81,10 +106,20 @@ class Comments extends Component {
             color="primary"
             type="submit"
           >
-            Click to Confirm
+            Click to Confirm 
           </Button>
         )}
+          <br /> <br />
+          <Button onClick={this.previous}
+            className="feedbackButton"
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Go Back
+          </Button>
       </div>
+      </Paper>
     ); // end return
   } // end render
 }

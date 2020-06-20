@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import { Input, TextField, Button, Select, MenuItem } from "@material-ui/core";
+import { Input, TextField, Button, Select, MenuItem, Paper } from "@material-ui/core";
 
 // header is a controlled component used to render the site header
 class Feeling extends Component {
   state = {
-    feeling: 5,
+    feeling: null,
   };
 
   handleChange = (event, fieldName) => {
@@ -25,8 +25,11 @@ class Feeling extends Component {
   }
   render() {
     return (
-      <div className="App-header">
-        <h1 className="App-title">Feeling</h1>
+      <Paper style={{ borderRadius: "10%", height: "500px", width: "500px"}} elevation="24" className="feedbackBox">
+      <div>
+          <h1>Overall how are you feeling today?</h1>
+          <h2>How do you feel about how this week went?</h2>
+          <h3>Rate from 1 to 5</h3>
         <form onSubmit={this.submitInfo}>
           <Select
             variant="outlined"
@@ -42,7 +45,7 @@ class Feeling extends Component {
             <MenuItem value="1">1</MenuItem>
           </Select>
           <Button
-            id="feeling"
+              className="feedbackButton"
             variant="contained"
             color="primary"
             type="submit"
@@ -51,6 +54,7 @@ class Feeling extends Component {
           </Button>
         </form>
       </div>
+      </Paper>
     ); // end return
   } // end render
 }

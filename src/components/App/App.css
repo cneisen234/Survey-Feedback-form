@@ -2,12 +2,59 @@
   text-align: center;
 }
 
+.feedbackBox {
+    margin: auto;
+  width: 50%;
+animation-name: enter;
+animation-duration: 1s;
+animation-iteration-count: 1;
+}
+#submitForm {
+  animation-name: buttonEnter;
+animation-duration: 1.5s;
+animation-iteration-count: 1;
+}
+
+
+@keyframes enter {
+  0% {
+    transform: translate3d(2000px, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0px);
+    animation-timing-function: ease-out;
+  }
+}
+
+@keyframes buttonEnter {
+  0% {
+    transform: translate3d(0px, 2000px, 0px);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0px);
+    animation-timing-function: ease-out;
+  }
+}
+
 .App-header {
   background-color: #033076;
   min-height: 70px;
   padding: 20px;
   color: white;
 }
+
+.App-footer {
+  position: absolute;
+  margin-top: 100px;
+  width: 100%;
+  min-height: 10px;
+  padding: 10px;
+  color: white;
+  font-size: 15px;
+  opacity: 0.8;
+  background-color: #033076;
+}
+
 
 .App-title {
   font-size: 1.5em;

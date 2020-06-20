@@ -7,37 +7,40 @@ import registerServiceWorker from './registerServiceWorker';
 import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 
-// const orderReducer = (state = [], action) => {
-//   let newState = [...state];
-//   if (action.type === "SET_ALL_ORDERS") {
-//     // payload must be an array of order objects
-//     newState = [...action.payload];
-//   }
-//   return newState;
-// };
+const feedbackGetter = (state = [], action) => {
+  let newState = [...state];
+  if (action.type === "SET_ALL_FEEDBACK") {
+    // payload must be an array of order objects
+    newState = [...action.payload];
+  }
+  return newState;
+};
 
 // //put pizzas from database onto page (GET)
-// const pizzaReducer = (state = [], action) => {
+// const feedbackGetter = (state = [], action) => {
 //   let newState = [...state];
-//   if (action.type === "GET_PIZZAS") {
+//   if (action.type === "GET_FEEDBACK") {
 //     // payload must be an array of pizza objects
 //     newState = [...action.payload];
 //   }
 //   return newState;
 // };
 
-const feedback = (state = { pizzas: [] }, action) => {
+const feedback = (state = { array: [] }, action) => {
   let newState = { ...state };
   if (action.type === "UPDATE_FEEDBACK_INFO") {
     // payload need to be an object containing all of the customer info
     newState = { ...newState, ...action.payload };
-  } 
+  } else if (action.type === "RESET_FEEDBACK") {
+    newState = { array: [] };
+  }
   return newState;
 };
 
 const storeInstance = createStore(
   combineReducers({
     feedback: feedback,
+    feedbackGetter: feedbackGetter,
   }),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

@@ -3,14 +3,17 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./App.css";
 import { connect } from "react-redux";
-import { HashRouter as Router, Switch, Route, NavLink } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, NavLink, } from "react-router-dom";
 
 //Our component imports in order
 import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import StartPage from "../startpage/startpage";
 import Comments from "../Comments/Comments";
 import Feeling from "../Feeling/Feeling";
-import Supported from "../Supported/Supported";
+import Support from "../Supported/Supported";
 import Understanding from "../Understanding/Understanding";
+import Admin from "../Admin/Admin";
 // import Footer from "../Footer/Footer";
 
 //NavLinks being used as a temp solution, will tie to next button later
@@ -44,20 +47,26 @@ class App extends Component {
         <div className="App">
           <Header />
           <Switch>
+            <Route exact path="/admin">
+              <Admin />
+            </Route>
             <Route exact path="/">
+              <StartPage />
+            </Route>
+            <Route exact path="/feeling">
               <Feeling />
             </Route>
             <Route exact path="/understanding">
               <Understanding /> 
             </Route>
-            <Route exact path="/supported">
-              <Supported />
+            <Route exact path="/support">
+              <Support />
             </Route>
             <Route exact path="/comments">
               <Comments />
             </Route>
           </Switch>
-          {/* <Footer /> */}
+          <Footer />
         </div>
       </Router>
     ); // end return
