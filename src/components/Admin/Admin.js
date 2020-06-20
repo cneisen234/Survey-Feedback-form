@@ -5,6 +5,8 @@ import axios from "axios";
 import moment from "moment";
 import FlagIcon from "@material-ui/icons/Flag";
 import EmojiFlagsIcon from "@material-ui/icons/EmojiFlags";
+import swal from "sweetalert";
+import Adminitem from "../adminitem/adminitem";
 
 // Admin represents a hidden view for the establishment owner so they can see 
 // and manage current orders
@@ -13,45 +15,44 @@ class Admin extends Component {
     this.refreshFeedback();
   }
 
-//   confirmFeedback = (event) => {
-//     const { flagged } = this.props.feedback;
-//     const submitFeedback = { ...this.props.feedback };
-//     console.log("submitFeedback", submitFeedback);
-//     swal({
-//       title: "Confirm your feedback",
-//       text: `You're feedback:
-//         How are you feeling today? ${feeling}
-//         How well are you understanding the content? ${understanding}
-//         How well are you being supported? ${support}
-//         Any comments you want to leave? ${comments}
-//         click "ok" to confirm`,
-//       icon: "confirm",
-//       buttons: true,
-//       dangerMode: true,
-//     }).then((confirm) => {
-//       if (confirm) {
-//         axios({
-//           method: "POST",
-//           url: "/confirm",
-//           data: submitFeedback,
-//         }) //end axios
-//           .then((response) => {
-//             // reset the current order data
-//             // this.props.dispatch({ type: "RESET_ORDER" });
-//             // go back to the starting order page
-//           }) //end .thenresponse
-//           .catch((error) => {
-//             console.log(error);
-//           }); //end .catchError
-//         swal("Thank you for your feedback!", {
-//           icon: "success",
-//         });
-//       } else {
-//         swal("Your feedback submission was canceled!");
-//       }
-//       this.props.history.push("/");
-//     });
-//   };
+  flagForReview = (event) => {
+      event.preventDefault();
+    const { id } = this.props.feedbackGetter;
+    const flagged = { ...this.props.feedbackGetter };
+    console.log("flagged", flagged)
+    // for (let flag of flagged) {
+    //     console.log("flag", flag);
+    // }
+    
+    
+    swal({
+      title: "Flag this review?",
+      text: `Did you want to report this review?`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((confirm) => {
+      if (confirm) {
+        axios({
+          method: "PUT",
+          url: `/confirm/${id}`
+        }) //end axios
+          .then((response) => {
+            // reset the current order data
+            // this.props.dispatch({ type: "RESET_ORDER" });
+            // go back to the starting order page
+          }) //end .thenresponse
+          .catch((error) => {
+            console.log(error);
+          }); //end .catchError
+        swal("This review has been flagged!", {
+          icon: "success",
+        });
+      } else {
+        swal("Flag request has been canceled!");
+      }
+    });
+  };
 
   //GETs list of orders from database and puts them in the Redux state
   refreshFeedback = () => {
@@ -59,7 +60,7 @@ class Admin extends Component {
     axios
       .get("/confirm")
       .then((response) => {
-        console.log(this.props.feedbackGetter.flagged);
+        console.log("this.props.feedbackGetter.flagged", this.props.feedbackGetter.flagged);
         // response.data will be the array of orders
         dispatch({ type: "SET_ALL_FEEDBACK", payload: response.data });
       })
@@ -81,23 +82,12 @@ class Admin extends Component {
             <th>Comments</th>
             <th>Flag</th>
             <th>Date</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
           {feedbackGetter.map((admin, index) => {
-            return (
-              <tr key={`Admin-${index}`}>
-                <td>{admin.feeling}</td>
-                <td>{admin.understanding}</td>
-                <td>{admin.support}</td>
-                <td>{admin.comments}</td>
-                <td>
-                  <EmojiFlagsIcon />
-                </td>{" "}
-                {console.log("admin.flagged", admin.flagged)}
-                <td>{moment(admin.date).format("MMMM Do YYYY")}</td>
-              </tr>
-            );
+            return <Adminitem key={index} admin={admin} />;
           })}
         </tbody>
       </table>

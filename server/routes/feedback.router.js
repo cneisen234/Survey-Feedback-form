@@ -39,6 +39,22 @@ router.post("/", (req, res) => {
         });
 });
 
+router.delete('/:id', (req, res) => {
+    let id = req.params.id; // id of the thing to delete
+    console.log('Delete route called with id of', id);
+
+    const queryText = `
+    DELETE FROM feedback WHERE id=$1;`
+    pool.query(queryText, [id])
+        .then(function (result) {
+            res.sendStatus(201);
+        }).catch(function (error) {
+            console.log('Sorry, there was an error with your query: ', error);
+            res.sendStatus(500);
+
+        });
+}); //end DELETE
+
 //PUT to flag for review
 router.put("/:id", (req, res) => {
   let id = req.params.id; // grabs id and places it in path
