@@ -76,6 +76,7 @@ class Admin extends Component {
       <table id="adminTable">
         <thead>
           <tr>
+            <th>Name</th>
             <th>Feeling</th>
             <th>Understanding</th>
             <th>Supported</th>

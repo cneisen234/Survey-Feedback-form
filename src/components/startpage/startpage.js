@@ -7,7 +7,7 @@ class StartPage extends Component {
     startFeedback = (event) => {
         event.preventDefault();
         this.props.dispatch({ type: "RESET_FEEDBACK" });
-        this.props.history.push("/feeling");
+        this.props.history.push("/name");
     };
     render() {
         return (

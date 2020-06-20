@@ -105,6 +105,7 @@ class Adminitem extends Component {
       const {admin} = this.props
         return (
           <tr>
+            <td>{admin.name}</td>
             <td>{admin.feeling}</td>
             <td s>{admin.understanding}</td>
             <td>{admin.support}</td>

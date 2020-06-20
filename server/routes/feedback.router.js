@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 router.post("/", (req, res) => {
     // HTTP REQUEST BODY
     const feedback = req.body; // pull the object out out of the HTTP REQUEST
-    const {feeling, understanding, support, comments, flagged} = feedback
+    const {name, feeling, understanding, support, comments, flagged} = feedback
     if (feedback === undefined) {
         // stop, dont touch the database
         res.sendStatus(400); // 400 BAD REQUEST
@@ -24,10 +24,10 @@ router.post("/", (req, res) => {
     }
 
     const queryText = `
-        INSERT INTO feedback (feeling, understanding, support, comments, flagged) 
-        VALUES ($1, $2, $3, $4, $5);`; //grabs database
+        INSERT INTO feedback (name, feeling, understanding, support, comments, flagged) 
+        VALUES ($1, $2, $3, $4, $5, $6);`; //grabs database
     pool
-        .query(queryText, [feeling, understanding, support, comments, false])
+        .query(queryText, [name, feeling, understanding, support, comments, false])
         .then(function (result) {
             // result.rows: 'INSERT 0 1';
             // it worked!

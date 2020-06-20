@@ -17,12 +17,12 @@ class Comments extends Component {
   };
 
   confirmFeedback = (event) => {
-    const { feeling, support, understanding, comments } = this.props.feedback;
+    const { feeling, support, understanding, comments, name } = this.props.feedback;
     const submitFeedback = { ...this.props.feedback };
     console.log("submitFeedback", submitFeedback)
     swal({
       title: "Confirm your feedback",
-      text: `You're feedback:
+      text: `Thank you ${name}! please confirm you're feedback below:
         How are you feeling today? ${feeling}
         How well are you understanding the content? ${understanding}
         How well are you being supported? ${support}

@@ -9,6 +9,7 @@ import { HashRouter as Router, Switch, Route, NavLink, } from "react-router-dom"
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import StartPage from "../startpage/startpage";
+import Name from "../Name/Name";
 import Comments from "../Comments/Comments";
 import Feeling from "../Feeling/Feeling";
 import Support from "../Supported/Supported";
@@ -53,11 +54,14 @@ class App extends Component {
             <Route exact path="/">
               <StartPage />
             </Route>
+            <Route exact path="/name">
+              <Name />
+            </Route>
             <Route exact path="/feeling">
               <Feeling />
             </Route>
             <Route exact path="/understanding">
-              <Understanding /> 
+              <Understanding />
             </Route>
             <Route exact path="/support">
               <Support />
