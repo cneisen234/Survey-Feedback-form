@@ -14,7 +14,9 @@ animation-iteration-count: 1;
 animation-duration: 1.5s;
 animation-iteration-count: 1;
 }
-
+.flag {
+  cursor: pointer;
+}
 
 @keyframes enter {
   0% {

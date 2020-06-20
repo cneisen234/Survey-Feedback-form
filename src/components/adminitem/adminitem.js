@@ -109,7 +109,7 @@ class Adminitem extends Component {
             <td s>{admin.understanding}</td>
             <td>{admin.support}</td>
             <td>{admin.comments}</td>
-            <td onClick={this.flagForReview}>
+            <td className="flag" onClick={this.flagForReview}>
               {admin.flagged === false ? <EmojiFlagsIcon /> : <FlagIcon />}
             </td>{" "}
             {console.log("admin.flagged", admin.flagged)}
