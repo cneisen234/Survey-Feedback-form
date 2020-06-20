@@ -5,6 +5,7 @@ import moment from "moment";
 import FlagIcon from "@material-ui/icons/Flag";
 import EmojiFlagsIcon from "@material-ui/icons/EmojiFlags";
 import swal from "sweetalert";
+import { withRouter } from "react-router";
 import {
   Input,
   TextField,
@@ -35,6 +36,7 @@ class Adminitem extends Component {
               method: "DELETE",
               url: `/confirm/${this.props.admin.id}`,
             }).then(function (response) {
+               
               
             });
             swal("Poof! Your review has been deleted!", {
@@ -42,9 +44,11 @@ class Adminitem extends Component {
             });
         } else {
             swal("Your review is safe!");
-            return;
         }
-        this.refreshFeedback();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      
     });
 }
 
@@ -133,5 +137,4 @@ const mapStateToProps = (state) => {
         feedbackGetter: state.feedbackGetter,
     };
 };
-
-export default connect(mapStateToProps)(Adminitem);
+export default withRouter(connect(mapStateToProps)(Adminitem));

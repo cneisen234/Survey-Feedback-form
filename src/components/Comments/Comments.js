@@ -28,7 +28,7 @@ class Comments extends Component {
         How well are you being supported? ${support}
         Any comments you want to leave? ${comments}
         click "ok" to confirm`,
-      icon: "confirm",
+      icon: "info",
       buttons: true,
       dangerMode: true,
     }).then((confirm) => {
