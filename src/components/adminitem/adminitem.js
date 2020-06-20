@@ -19,9 +19,8 @@ class Adminitem extends Component {
   componentDidMount() {
     this.refreshFeedback();
   }
-
-   deleteReview = (event) => {
-     event.preventDefault();
+   
+  deleteReview = (event) => {
     //sweet alerts!
     swal({
         title: "Are you sure?",
@@ -33,10 +32,10 @@ class Adminitem extends Component {
         //if confirmed, delete
         if (willDelete) {
             axios({
-                type: "DELETE",
-                url: `/confirm/${this.props.admin.id}`,
+              method: "DELETE",
+              url: `/confirm/${this.props.admin.id}`,
             }).then(function (response) {
-               this.refreshFeedback();
+              
             });
             swal("Poof! Your review has been deleted!", {
                 icon: "success",
@@ -45,6 +44,7 @@ class Adminitem extends Component {
             swal("Your review is safe!");
             return;
         }
+        this.refreshFeedback();
     });
 }
 
@@ -70,7 +70,6 @@ class Adminitem extends Component {
             // reset the current order data
             // this.props.dispatch({ type: "RESET_ORDER" });
             // go back to the starting order page
-            this.refreshFeedback();
           }) //end .thenresponse
           .catch((error) => {
             console.log(error);
@@ -81,6 +80,7 @@ class Adminitem extends Component {
       } else {
         swal("Flag request has been canceled!");
       }
+        this.refreshFeedback();
     });
   };
 
@@ -112,10 +112,11 @@ class Adminitem extends Component {
             <td>{moment(admin.date).format("MMMM Do YYYY")}</td>
             <td>
               {
-                <Button onClick={this.}
+                <Button
+                  onClick={this.deleteReview}
                   className="feedbackButton"
                   variant="contained"
-                  color="warning"
+                  color="secondary"
                   type="delete"
                 >
                   Delete
