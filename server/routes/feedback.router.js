@@ -10,9 +10,9 @@ router.get('/', (req, res) => {
         console.log('Error GET /feedback', error)
         res.sendStatus(500);
     });
-})
-//POST the new feedback
+}) //end GET
 
+//POST the new feedback
 router.post("/", (req, res) => {
     // HTTP REQUEST BODY
     const feedback = req.body; // pull the object out out of the HTTP REQUEST
@@ -37,20 +37,21 @@ router.post("/", (req, res) => {
             console.log("Sorry, there was an error with your query: ", error);
             res.sendStatus(500); // HTTP SERVER ERROR
         });
-});
+}); // end POST
 
+//DELETES entry from admin page
 router.delete('/:id', (req, res) => {
     let id = req.params.id; // id of the thing to delete
     console.log('Delete route called with id of', id);
 
     const queryText = `
-    DELETE FROM feedback WHERE id=$1;`
+    DELETE FROM feedback WHERE id=$1;` //deletes from database
     pool.query(queryText, [id])
         .then(function (result) {
-            res.sendStatus(201);
+            res.sendStatus(201); //status 201
         }).catch(function (error) {
             console.log('Sorry, there was an error with your query: ', error);
-            res.sendStatus(500);
+            res.sendStatus(500); //HTTP SERVER ERROR
 
         });
 }); //end DELETE
@@ -59,7 +60,7 @@ router.delete('/:id', (req, res) => {
 router.put("/:id", (req, res) => {
   let id = req.params.id; // grabs id and places it in path
   let queryText = `UPDATE feedback SET flagged = 'true' WHERE (flagged = 'false' AND id = $1)`;
-  //....and uopdates it with put to start time
+  //....and uopdates it with put to flagged
   pool
     .query(queryText, [id])
 

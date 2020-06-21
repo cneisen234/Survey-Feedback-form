@@ -1,8 +1,10 @@
 .App {
+  /*aligns all text center*/
   text-align: center;
 }
 
 .feedbackBox {
+  /*animation duration and other styles for Paper components with the class of feedbackBox*/
     margin: auto;
   width: 50%;
 animation-name: enter;
@@ -10,15 +12,18 @@ animation-duration: 1s;
 animation-iteration-count: 1;
 }
 #submitForm {
+  /*runs animation for final submit buttons, renders on condition of click in React, start animation when rendered*/
   animation-name: buttonEnter;
 animation-duration: 1.5s;
 animation-iteration-count: 1;
 }
 .flag {
+  /*changes cursor to pointer for flag icon*/
   cursor: pointer;
 }
 
 @keyframes enter {
+  /*enters from right side and ends in middle of page*/
   0% {
     transform: translate3d(2000px, 0px, 0px);
   }
@@ -29,6 +34,7 @@ animation-iteration-count: 1;
 }
 
 @keyframes buttonEnter {
+  /*enters from button of page and rests inside Paper component on comments page, activated on render*/
   0% {
     transform: translate3d(0px, 2000px, 0px);
   }
@@ -39,6 +45,7 @@ animation-iteration-count: 1;
 }
 
 .App-header {
+  /*styles for header*/
   background-color: #033076;
   min-height: 70px;
   padding: 20px;
@@ -46,6 +53,7 @@ animation-iteration-count: 1;
 }
 
 .App-footer {
+  /*styles for footer*/
   position: absolute;
   margin-top: 100px;
   width: 100%;
@@ -59,10 +67,12 @@ animation-iteration-count: 1;
 
 
 .App-title {
+  /*font size for title*/
   font-size: 1.5em;
 }
 
 .App-intro {
+  /*font size for intro*/
   font-size: large;
 }
 

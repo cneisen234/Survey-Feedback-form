@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 
+// Header is a controlled component that renders the header of the site
 class Header extends Component {
+  // React render function
   render() {
     return (
       <div className="App">

@@ -1,9 +1,10 @@
+/*table positioning*/
 table{
   margin-left:auto; 
     margin-right:auto;
     margin-top: 20px;
 }
-
+/*table styles and colors*/
 th{
   background-color: #033076;
   color: white;
@@ -12,7 +13,7 @@ th{
   border: 10px solid #033076;
 
 }
-
+/*sets the opposite background color for tds*/
 td {
    border: 10px solid white;
 }

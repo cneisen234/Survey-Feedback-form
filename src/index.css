@@ -1,10 +1,11 @@
 body {
+  /*sets default margin and padding to body*/
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Permanent Marker'/*Google Fonts!*/, cursive;
 }
-
+/*root of all React components rendered, sets background color and height for container*/
 #root {
 background: linear-gradient(white, lightblue);
  height: 1000px;

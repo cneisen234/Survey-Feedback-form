@@ -6,21 +6,15 @@ import FlagIcon from "@material-ui/icons/Flag";
 import EmojiFlagsIcon from "@material-ui/icons/EmojiFlags";
 import swal from "sweetalert";
 import { withRouter } from "react-router";
-import {
-  Input,
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-  Paper,
-} from "@material-ui/core";
+import { Button } from "@material-ui/core";
 
 
 class Adminitem extends Component {
+  //refreshes database info on load
   componentDidMount() {
-    this.refreshFeedback();
+    this.props.refreshFeedback();
   }
-   
+   //deletes selected review
   deleteReview = (event) => {
     //sweet alerts!
     swal({
@@ -29,96 +23,94 @@ class Adminitem extends Component {
         icon: "warning",
         buttons: true,
         dangerMode: true,
-    }).then((willDelete) => {
+        //end sweet alerts
+    }).then((willDelete) => {// start .then
         //if confirmed, delete
         if (willDelete) {
             axios({
               method: "DELETE",
-              url: `/confirm/${this.props.admin.id}`,
+              url: `/confirm/${this.props.admin.id}`, 
+              //grabs id of component that are interacting with
             }).then(function (response) {
                
               
             });
+            //success! review deleted
             swal("Poof! Your review has been deleted!", {
                 icon: "success",
             });
         } else {
+          //...else cancel action
             swal("Your review is safe!");
         }
+        //reloads page after 1.5 seconds of deletion to reflect update on admin page
         setTimeout(() => {
           window.location.reload();
         }, 1500);
       
     });
-}
+} //end deleteReview
 
+  //flags the current review with a PUT request
   flagForReview = (event) => {
+    //prevents default action
       event.preventDefault();
- console.log("this.props.admin.id", this.props.admin.id)
-  console.log("this.props.admin.flagged", this.props.admin.flagged);
-    
-    
+      //sweet alerts    
     swal({
       title: "Flag this review?",
       text: `Did you want to report this review?`,
       icon: "warning",
       buttons: true,
       dangerMode: true,
+      //end sweet alerts
     }).then((confirm) => {
       if (confirm) {
-        axios({
+        axios({//start axios
           method: "PUT",
           url: `/confirm/${this.props.admin.id}`,
         }) //end axios
-          .then((response) => {
-            // reset the current order data
-            // this.props.dispatch({ type: "RESET_ORDER" });
-            // go back to the starting order page
-          }) //end .thenresponse
-          .catch((error) => {
+          .then((response) => {//start .then
+          }) //end .then
+          .catch((error) => {//start .catchError
             console.log(error);
           }); //end .catchError
+          //success! Review flagged
         swal("This review has been flagged!", {
           icon: "success",
         });
       } else {
+        //...else cancel
         swal("Flag request has been canceled!");
       }
+      //reloads page showing current info from database with newly flagged item
       setTimeout(() => {
         window.location.reload();
       }, 1500);
     });
   };
 
-  //GETs list of orders from database and puts them in the Redux state
-  refreshFeedback = () => {
-    const { dispatch } = this.props;
-    axios
-      .get("/confirm")
-      .then((response) => {
-        // response.data will be the array of orders
-        dispatch({ type: "SET_ALL_FEEDBACK", payload: response.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }; //end refreshOrders
     render() {
+      // grabs admin parem from map of parent
       const {admin} = this.props
         return (
           <tr>
+            {/* table data for each mapped item */}
             <td>{admin.name}</td>
             <td>{admin.feeling}</td>
             <td s>{admin.understanding}</td>
             <td>{admin.support}</td>
             <td>{admin.comments}</td>
+            {/* clickable event, runs flagForReview function */}
             <td className="flag" onClick={this.flagForReview}>
+              {/* onClick also toggles "toggle" key in state and renders based on it's value, 
+              changing the flag icon thats displayed */}
               {admin.flagged === false ? <EmojiFlagsIcon /> : <FlagIcon />}
-            </td>{" "}
-            {console.log("admin.flagged", admin.flagged)}
+            </td>
+            {/* formats timestamp with moment */}
             <td>{moment(admin.date).format("MMMM Do YYYY")}</td>
             <td>
               {
+                //delete button, runs deleteReview function on click
                 <Button
                   onClick={this.deleteReview}
                   className="feedbackButton"
