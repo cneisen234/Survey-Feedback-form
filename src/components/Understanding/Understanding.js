@@ -31,11 +31,17 @@ class Understanding extends Component {
   }
 
   render() {
+    const {name, feeling} = this.props.feedback
     return (
       <Paper style={{ borderRadius: "10%", height: "500px", width: "500px"}} elevation="24" className="feedbackBox">
       <div>
-        <h1>How well did you understand?</h1>
-        <h2>Rate your understanding of this week's content</h2>
+          {feeling > 3 ? (
+            <h1>Great! Glad you are feeling good {name}!</h1>
+          ) : (
+              <h1>Oh no! I'm sorry you're not feeling well {name}!</h1>
+            )}
+       
+        <h2>How well did you understand the content?</h2>
         <h3>Rate from 1 to 5</h3>
         <form onSubmit={this.submitInfo}>
           <Select

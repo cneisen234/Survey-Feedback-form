@@ -84,7 +84,9 @@ class Adminitem extends Component {
       } else {
         swal("Flag request has been canceled!");
       }
-        this.refreshFeedback();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     });
   };
 

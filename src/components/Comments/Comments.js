@@ -70,11 +70,16 @@ class Comments extends Component {
     this.props.history.push("/support");
   };
   render() {
+    const { name, support } = this.props.feedback
     return (
       <Paper style={{ borderRadius: "10%", height: "500px", width: "500px" }} elevation="24" className="feedbackBox">
       <div>
-          <h1>Do you have any feedback for us?</h1>
-          <h2>We'd love to hear from you</h2>
+             {support > 3 ? (
+            <h1>I'm glad we were able to support you {name}!</h1>
+          ) : (
+              <h1>Oh no! Sorry you didn't feel supported {name}! Please let us know if we can help.</h1>
+            )}
+          <h2>Do you have any feedback for us?</h2>
           <h3>please fill out any feedback you have for us below</h3>
         <form onSubmit={this.submitInfo}>
           <TextField

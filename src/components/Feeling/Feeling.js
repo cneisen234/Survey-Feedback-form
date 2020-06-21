@@ -29,6 +29,7 @@ class Feeling extends Component {
     this.props.dispatch({ type: "UPDATE_FEEDBACK_INFO", payload: this.state });
   }
   render() {
+    const {name} = this.props.feedback
     return (
       <Paper
         style={{ borderRadius: "10%", height: "500px", width: "500px" }}
@@ -36,8 +37,8 @@ class Feeling extends Component {
         className="feedbackBox"
       >
         <div>
-          <h1>Overall how are you feeling today?</h1>
-          <h2>How do you feel about how this week went?</h2>
+          <h1>Hello {name}!</h1>
+          <h2>Overall how are you feeling today?</h2>
           <h3>Rate from 1 to 5</h3>
           <form onSubmit={this.submitInfo}>
             <Select

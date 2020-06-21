@@ -30,10 +30,15 @@ class Support extends Component {
     this.props.dispatch({ type: "UPDATE_FEEDBACK_INFO", payload: this.state });
   }
   render() {
+    const { name, understanding } = this.props.feedback
     return (
       <Paper style={{ borderRadius: "10%", height: "500px", width: "500px" }} elevation="24" className="feedbackBox">
       <div>
-          <h1>How supported did you feel?</h1>
+          {understanding > 3 ? (
+            <h1>I'm glad to hear you understand {name}!</h1>
+          ) : (
+              <h1>Shoot! I'm sorry the content wasn't clear {name}!</h1>
+            )}
           <h2>Rate your satisfaction of the support you received</h2>
           <h3>Rate from 1 to 5</h3>
         <form onSubmit={this.submitInfo}>
